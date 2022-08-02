@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useSelector } from "react-redux";
+import Auth from "./pages/auth/Auth";
+import Home from './pages/home/Home';
+import {BrowserRouter,Navigate,Route,Routes} from 'react-router-dom';
+import List from './pages/list/List';
+import Single from "./pages/single/Single";
+import New from './pages/new/New'
+import Chat from "./pages/chat/Chat";
+import SingleOrder from "./pages/singleOrder/SingleOrder";
+import MyEditor from './components/editor/MyEditor'
+import UpdateMeal from "./pages/updateMeal/UpdateMeal";
 function App() {
+
+  let {admin} = useSelector(state=>state.auth);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={admin ? <Home />: <Navigate to={`/login`} />}/>
+          <Route path="/home" element={admin ? <Home />: <Navigate to={`/login`} />}/>
+          <Route path="/login" element={admin ? <Navigate to={`/home`} />: <Auth />}/>
+
+          <Route path="/users" element={admin ?<List />: <Navigate to='/login' /> } />
+          <Route path="/meals" element={admin ?<List />: <Navigate to='/login' /> } />
+          <Route path="/orders" element={admin ?<List />: <Navigate to='/login' /> } />
+
+          <Route path="/users/:id" element={admin ?<Single />: <Navigate to='/login' /> } />
+          <Route path="/meals/:id" element={admin ?<UpdateMeal />: <Navigate to='/login' /> } />
+          <Route path="/orders/:id" element={admin ?<SingleOrder />: <Navigate to='/login' /> } />
+
+          <Route path="/addUser" element={admin ?<New />: <Navigate to='/login' /> } />
+          <Route path="/addMeal" element={admin ?<New />: <Navigate to='/login' /> } />
+          
+          <Route path="/chat" element={admin ?<Chat />: <Navigate to='/login' /> } />
+          <Route path="/editor" element={<MyEditor />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
