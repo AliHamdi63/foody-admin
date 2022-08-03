@@ -3,7 +3,7 @@ import axios from 'axios';
 let url = process.env.REACT_APP_SERVER_URL;
 
 export const getUsers = createAsyncThunk('get/users',async(admin)=>{
-    let res = await axios.get(`${url}/users`,{
+    let res = await axios.get(`${url}users`,{
         headers:{token:admin.token}
     });
 
@@ -12,7 +12,7 @@ export const getUsers = createAsyncThunk('get/users',async(admin)=>{
 
 export const deleteUser = createAsyncThunk('delete/users',async({admin,id})=>{
 
-    let res = await axios.delete(`${url}/users/${id}`,{
+    let res = await axios.delete(`${url}users/${id}`,{
         headers:{token:admin.token}
     });
 
@@ -22,12 +22,12 @@ export const deleteUser = createAsyncThunk('delete/users',async({admin,id})=>{
 
 export const addUser = createAsyncThunk('add/users',async(user)=>{
 
-    let res = await axios.post(`${url}/auth/register`,user);
+    let res = await axios.post(`${url}auth/register`,user);
     return res.data;
 })
 
 export const updateUser = createAsyncThunk('update/users',async({admin,id,inputData})=>{
-    let res = await axios.put(`${url}/users/${id}`,inputData,{
+    let res = await axios.put(`${url}users/${id}`,inputData,{
         headers:{token:admin.token},
     });
 

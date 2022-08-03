@@ -8,7 +8,7 @@ const Ingredients = ({Ingredients,ingredientsImage,status,setData,empty,setEmpty
     let [file,setFile] = useState(null);
     let [ingredients,setIngredients] =useState([]);
     const cols = ['Quantity','Ingredient','Action'];
-    const imgP = process.env.REACT_APP_SERVER_URL + '/images';
+    const imgP = process.env.REACT_APP_SERVER_URL + 'images';
 
     let Quantity = useRef();
     let Name = useRef();

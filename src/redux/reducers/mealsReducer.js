@@ -3,17 +3,28 @@ import axios from 'axios';
 
 let url = process.env.REACT_APP_SERVER_URL;
 
+<<<<<<< HEAD
 export const getMeals = createAsyncThunk('get/meals', async (admin) => {
     let res = await axios.get(`${url}/meals?page=1&limit=70`, {
         headers: { token: admin.token }
+=======
+export const getMeals = createAsyncThunk('get/meals',async(admin)=>{
+    let res = await axios.get(`${url}meals?page=1&limit=60`,{
+        headers:{token:admin.token}
+>>>>>>> dae4a11f94dfca68e6d4ec9cf938d946b93baff9
     });
     return res.data.meals
 })
 
 export const deleteMeal = createAsyncThunk('delete/meal', async ({ admin, id }) => {
 
+<<<<<<< HEAD
     let res = await axios.delete(`${url}/meals/${id}`, {
         headers: { token: admin.token }
+=======
+    let res = await axios.delete(`${url}meals/${id}`,{
+        headers:{token:admin.token}
+>>>>>>> dae4a11f94dfca68e6d4ec9cf938d946b93baff9
     });
 
     return res.data
@@ -21,32 +32,55 @@ export const deleteMeal = createAsyncThunk('delete/meal', async ({ admin, id }) 
 
 export const addMeal = createAsyncThunk('add/meal', async ({ admin, meal }) => {
     console.log(meal)
+<<<<<<< HEAD
     let res = await axios.post(`${url}/meals`, meal, {
         headers: { token: admin.token },
+=======
+    let res = await axios.post(`${url}meals`,meal,{
+        headers:{token:admin.token},
+>>>>>>> dae4a11f94dfca68e6d4ec9cf938d946b93baff9
     });
     console.log(res.data)
     return res.data
 })
 
+<<<<<<< HEAD
 export const updateMeal = createAsyncThunk('update/meal', async ({ admin, id, meal }) => {
     let res = await axios.put(`${url}/meals/${id}`, meal, {
         headers: { token: admin.token },
+=======
+export const updateMeal = createAsyncThunk('update/meal',async({admin,id,meal})=>{
+    let res = await axios.put(`${url}meals/${id}`,meal,{
+        headers:{token:admin.token},
+>>>>>>> dae4a11f94dfca68e6d4ec9cf938d946b93baff9
     });
 
     return res.data
 })
 
+<<<<<<< HEAD
 export const updateIngredients = createAsyncThunk('update/ingredients', async ({ admin, id, ingredients }) => {
     let res = await axios.put(`${url}/meals/${id}/ingredients`, ingredients, {
         headers: { token: admin.token },
+=======
+export const updateIngredients = createAsyncThunk('update/ingredients',async({admin,id,ingredients})=>{
+    let res = await axios.put(`${url}meals/${id}/ingredients`,ingredients,{
+        headers:{token:admin.token},
+>>>>>>> dae4a11f94dfca68e6d4ec9cf938d946b93baff9
     });
 
     return res.data
 })
 
+<<<<<<< HEAD
 export const updateInstructions = createAsyncThunk('update/instructions', async ({ admin, id, instructions }) => {
     let res = await axios.put(`${url}/meals/${id}/instructions`, instructions, {
         headers: { token: admin.token },
+=======
+export const updateInstructions = createAsyncThunk('update/instructions',async({admin,id,instructions})=>{
+    let res = await axios.put(`${url}meals/${id}/instructions`,instructions,{
+        headers:{token:admin.token},
+>>>>>>> dae4a11f94dfca68e6d4ec9cf938d946b93baff9
     });
 
     return res.data

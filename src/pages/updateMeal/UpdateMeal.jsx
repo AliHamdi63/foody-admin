@@ -19,7 +19,7 @@ const UpdateMeal = (props) => {
     let [data,setData] = useState({});
     let {admin} = useSelector(state=>state.auth);
     const dispatch = useDispatch();
-    const imgP = process.env.REACT_APP_SERVER_URL + '/images';
+    const imgP = process.env.REACT_APP_SERVER_URL + 'images';
 
 
     useEffect(()=>{

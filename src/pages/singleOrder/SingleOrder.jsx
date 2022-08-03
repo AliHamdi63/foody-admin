@@ -5,20 +5,26 @@ import { useParams } from "react-router";
 import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateOrder } from "../../redux/reducers/orderReducer";
 
 const SingleOrder = () => {
     let serverPath =  process.env.REACT_APP_SERVER_URL;
     let imgP = process.env.REACT_APP_SERVER_URL + '/images';
+    let dispatch = useDispatch();
     let {admin} = useSelector(state=>state.auth);
     let [data,setData] = useState(null);
+    let [status,setstatus] = useState('pending');
     let {id} = useParams();
+   
 
     useEffect(()=>{
 
         const getOrder = async()=>{
             try {
-                let res = await axios.get(`${serverPath}/orders/${id}`);
+                let res = await axios.get(`${serverPath}orders/${id}`,{
+                    headers:{token:admin.token}
+                });
                 setData(res.data)
                 
             } catch (err) {
@@ -28,6 +34,20 @@ const SingleOrder = () => {
         getOrder();
 
     },[id])
+
+    useEffect(()=>{
+        setstatus(data?.status);
+    },[data])
+
+    const handleChange=(e)=>{
+        setstatus(e.target.value);
+    }
+
+    const updateorder =()=>{
+        dispatch(updateOrder({admin,id,status}));
+        console.log(status);
+    }
+        
 
   return (
     <div className="order">
@@ -41,37 +61,37 @@ const SingleOrder = () => {
                         <h3>User Info</h3>
                     <div className="info">
                             <span className="key">User Id: </span>
-                            <span className="value">{data?.userId._id}</span>
+                            <span className="value">{data?.user?._id}</span>
                         </div>
                         <div className="info">
                             <span className="key">User Name: </span>
-                            <span className="value">{data?.userId.userName}</span>
+                            <span className="value">{data?.user?.firstName+' '+data?.user?.lastName}</span>
                         </div>
                         <div className="info">
                             <span className="key">Email: </span>
-                            <span className="value">{data?.userId.email}</span>
+                            <span className="value">{data?.user?.email}</span>
                         </div>
                     </div>
                     <div className="productsInfo">
-                        <h3>Products Info</h3>
-                    {data?.products.map((product=>{
+                        <h3>Meals Info</h3>
+                    {data&&data.meals.map(((meal,i)=>{
                         return (
-                            <div className="product" key={product.productId._id}>
+                            <div className="meal" key={i}>
                                 <div className="info">
-                                <span className="key">Product ID: </span>
-                                <span className="value">{product.productId._id}</span>
+                                <span className="key">meal ID: </span>
+                                <span className="value">{meal?.meal?._id}</span>
                                 </div>
                                 <div className="info">
-                                <span className="key">Title: </span>
-                                <span className="value">{product.productId.title}</span>
+                                <span className="key">Name: </span>
+                                <span className="value">{meal?.meal?.name}</span>
                                 </div>
                                 <div className="info">
                                 <span className="key">Price: </span>
-                                <span className="value">{product.productId.price}$</span>
+                                <span className="value">{meal?.meal?.price}$</span>
                                 </div>
                                 <div className="info">
                                 <span className="key">Quantity: </span>
-                                <span className="value">{product.quantity}</span>
+                                <span className="value">{meal?.quantity}</span>
                                 </div>
                             </div>
                         )
@@ -84,14 +104,14 @@ const SingleOrder = () => {
                 </div>
                 <div className={`info`}>
                     <span className="key">Status: </span>
-                    <span className={`status ${data?.status}`}>{data?.status}</span>
-                    <select defaultValue={data?.status}>
-                        <option selected={true} disabled={true}>change Status</option>
+                    <span className={`status ${status}`}>{status}</span>
+                    <select defaultValue={''} onChange={handleChange}>
+                    {<option disabled={true} value={''}>Choose Status</option>}
                         {data?.status!=="pending" &&<option value={`pending`}>Pending</option>}
                         {data?.status!=="approved"&&<option value={`approved`}>Approved</option>}
                         {data?.status!=="rejected"&&<option value={`rejected`}>Rejected</option>}
                     </select>
-                    <button className="confirm">Confirm</button>
+                    <button className="confirm" onClick={updateorder}>Confirm</button>
                 </div>
             </div>
         </div>
