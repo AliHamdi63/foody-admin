@@ -14,7 +14,7 @@ const Instructions = ({setData,Instructions,empty2,setEmpty2}) => {
     let [empty,setEmpty] = useState(false);
     let [editor,setEditor] = useState(false);
     let URLStr = useRef();
-    const imgP = process.env.REACT_APP_SERVER_URL + '/images';
+    const imgP = process.env.REACT_APP_SERVER_URL + 'images';
 
 useEffect(()=>{
   setInstructions(Instructions);
