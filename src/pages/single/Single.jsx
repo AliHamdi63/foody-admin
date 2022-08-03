@@ -48,7 +48,7 @@ const Single = () => {
 
   useEffect(()=>{
     const getIncome = async()=>{
-      let res =await axios.get(`${serverUrl}users/monthly/stats`,{
+      let res =await axios.get(`${serverUrl}orders/monthly/spending`,{
         headers:{token:admin.token}
       })
       
