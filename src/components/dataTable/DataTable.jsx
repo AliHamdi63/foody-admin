@@ -8,67 +8,67 @@ import { deleteOrder } from '../../redux/reducers/orderReducer';
 import { deleteMeal } from '../../redux/reducers/mealsReducer';
 
 
-const DataTable = (props)=> {
-  let {Rows,Cols} = props;
+const DataTable = (props) => {
+  let { Rows, Cols } = props;
   let dispatch = useDispatch();
-  let {admin} = useSelector(state=>state.auth);
+  let { admin } = useSelector(state => state.auth);
   let path = props.path;
 
 
 
-  const handleDelete = (id)=>{
-    switch(path){
+  const handleDelete = (id) => {
+    switch (path) {
       case '/users':
-        dispatch(deleteUser({admin,id}));
+        dispatch(deleteUser({ admin, id }));
         break;
       case '/meals':
-        dispatch(deleteMeal({admin,id}));
+        dispatch(deleteMeal({ admin, id }));
         break;
       case '/orders':
-        dispatch(deleteOrder({admin,id}))
+        dispatch(deleteOrder({ admin, id }))
     }
   }
 
 
   const actionColumns = [
     {
-        field:'action',
-        headerName : 'action',
-        width: 150,
-        renderCell:(params)=>{
-            return(
-                <div className='action'>
-                  <Link to={`${path==='/users'?'/users':path==='/meals'?'/meals':path==='/orders'?'/orders':'/'}/${params.row._id}`}>
-                    <div className='view'>View</div>
-                  </Link>
-                    <div onClick={()=>handleDelete(params.row._id)} className='delete'>Delete</div>
-                </div>
-            )
-        }
+      field: 'action',
+      headerName: 'action',
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <div className='action'>
+            <Link to={`${path === '/users' ? '/users' : path === '/meals' ? '/meals' : path === '/orders' ? '/orders' : '/'}/${params.row._id}`}>
+              <div className='view'>View</div>
+            </Link>
+            <div onClick={() => handleDelete(params.row._id)} className='delete'>Delete</div>
+          </div>
+        )
+      }
     }
-]
+  ]
 
 
   return (
     <div className='dataTable'>
-        <div className='top'>
+      <div className='top'>
         <span className='title'>{props.title}</span>
-        {path!== '/orders' &&<Link to={path=='/users'?'/addUser':path=='/meals'?'/addMeal':''}>
-        <span className='add'>add New</span>
+        {path !== '/orders' && <Link to={path == '/users' ? '/addUser' : path == '/meals' ? '/addMeal' : ''}>
+          <span className='add'>add New</span>
         </Link>}
-        </div>
-    
-    <div style={{ height: 550, width: '100%' }}>
-      <DataGrid
-        className='datagrid'
-        rows={Rows}
-        columns={Cols?.concat(actionColumns)}
-        getRowId ={(row)=>row._id}
-        pageSize={8}
-        rowsPerPageOptions={[8]}
+      </div>
 
-      />
-    </div>
+      <div style={{ height: 550, width: '100%' }}>
+        <DataGrid
+          className='datagrid'
+          rows={Rows}
+          columns={Cols?.concat(actionColumns)}
+          getRowId={(row) => row._id}
+          pageSize={12}
+          rowsPerPageOptions={[8]}
+
+        />
+      </div>
 
     </div>
   )
