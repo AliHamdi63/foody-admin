@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
  const Navbar = () => {
   const {admin} = useSelector(state=>state.auth);
-  let imgP = process.env.REACT_APP_SERVER_URL + '/images';
+  let imgP = process.env.REACT_APP_SERVER_URL + 'images';
 
   return (
     <div className='navbar'>
