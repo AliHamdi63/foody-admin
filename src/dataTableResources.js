@@ -57,18 +57,18 @@ export const userColumns = [
   export const orderColumns = [
     {
       field:'_id',
-      headerName: "Tracking ID",
+      headerName: "Order ID",
       width: 200,
     },
     {
-      field:'userid',
+      field:'user',
       headerName: "Customer",
       width: 200,
       renderCell :(params)=>{
         return (
           <div className="cellWithImg">
-            <img className="cellImg" src={`${imgP+'/'+params.row.userId.image}`} alt="avatar" />
-            {params.row.userId.userName}
+            <img className="cellImg" src={`${imgP+'/'+params.row.user.image}`} alt="avatar" />
+            {`${params.row.user.firstName} ${params.row.user.lastName}`}
           </div>
         )
       }
@@ -87,14 +87,19 @@ export const userColumns = [
       field:'address',
       headerName: "Address",
       width: 200,
+      renderCell :(params)=>{
+        return (
+          <span>{params.row.user.address}</span>
+        )
+      }
     },
     {
       field:'payment',
       headerName: "payment method",
       width: 150,
-      renderCell :()=>{
+      renderCell :(params)=>{
         return (
-          <span>Online Payment</span>
+          <span>{params.row.methodOfPayment}</span>
         )
       }
     },

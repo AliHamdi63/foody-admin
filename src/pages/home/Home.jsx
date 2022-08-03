@@ -36,9 +36,11 @@ const Home = () => {
 
   useEffect(()=>{
     const getIncome = async()=>{
-      let res =await axios.get(`${serverUrl}/orders/monthly/income`)
+      let res =await axios.get(`${serverUrl}orders/monthly/income`,{
+        headers:{token:admin.token}
+      })
       
-      setData(res.data.map((m)=>{
+      res.data&&setData(res.data.map((m)=>{
         return (
             {
               name: getMonth(m._id),
@@ -53,8 +55,10 @@ const Home = () => {
 
   useEffect(()=>{
     const gettodayIncome = async()=>{
-      let res =await axios.get(`${serverUrl}/orders/today/income`)
-      setTodayIncome(res.data[0].total)
+      let res =await axios.get(`${serverUrl}orders/today/income`,{
+        headers:{token:admin.token}
+      })
+      res.data&&setTodayIncome(res.data[0]?.total)
     }
 
     gettodayIncome();
@@ -77,7 +81,7 @@ const Home = () => {
         </div>
         <div className='tableContainer'>
           <p>Latest Transaction</p>
-          <List limit={6}/>
+          <List />
         </div>
       </div>
     </div>

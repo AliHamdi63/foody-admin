@@ -4,7 +4,7 @@ import axios from 'axios';
 let url = process.env.REACT_APP_SERVER_URL;
 
 export const getMeals = createAsyncThunk('get/meals',async(admin)=>{
-    let res = await axios.get(`${url}/meals?page=1&limit=30`,{
+    let res = await axios.get(`${url}meals?page=1&limit=60`,{
         headers:{token:admin.token}
     });
     return res.data.meals
@@ -12,7 +12,7 @@ export const getMeals = createAsyncThunk('get/meals',async(admin)=>{
 
 export const deleteMeal = createAsyncThunk('delete/meal',async({admin,id})=>{
 
-    let res = await axios.delete(`${url}/meals/${id}`,{
+    let res = await axios.delete(`${url}meals/${id}`,{
         headers:{token:admin.token}
     });
 
@@ -21,7 +21,7 @@ export const deleteMeal = createAsyncThunk('delete/meal',async({admin,id})=>{
 
 export const addMeal = createAsyncThunk('add/meal',async({admin,meal})=>{
     console.log(meal)
-    let res = await axios.post(`${url}/meals`,meal,{
+    let res = await axios.post(`${url}meals`,meal,{
         headers:{token:admin.token},
     });
     console.log(res.data)
@@ -29,7 +29,7 @@ export const addMeal = createAsyncThunk('add/meal',async({admin,meal})=>{
 })
 
 export const updateMeal = createAsyncThunk('update/meal',async({admin,id,meal})=>{
-    let res = await axios.put(`${url}/meals/${id}`,meal,{
+    let res = await axios.put(`${url}meals/${id}`,meal,{
         headers:{token:admin.token},
     });
 
@@ -37,7 +37,7 @@ export const updateMeal = createAsyncThunk('update/meal',async({admin,id,meal})=
 })
 
 export const updateIngredients = createAsyncThunk('update/ingredients',async({admin,id,ingredients})=>{
-    let res = await axios.put(`${url}/meals/${id}/ingredients`,ingredients,{
+    let res = await axios.put(`${url}meals/${id}/ingredients`,ingredients,{
         headers:{token:admin.token},
     });
 
@@ -45,7 +45,7 @@ export const updateIngredients = createAsyncThunk('update/ingredients',async({ad
 })
 
 export const updateInstructions = createAsyncThunk('update/instructions',async({admin,id,instructions})=>{
-    let res = await axios.put(`${url}/meals/${id}/instructions`,instructions,{
+    let res = await axios.put(`${url}meals/${id}/instructions`,instructions,{
         headers:{token:admin.token},
     });
 

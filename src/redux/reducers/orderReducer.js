@@ -4,21 +4,25 @@ import axios from 'axios';
 
 let url = process.env.REACT_APP_SERVER_URL;
 
-export const getOrders = createAsyncThunk('get/orders',async({admin,limit})=>{
+export const getOrders = createAsyncThunk('get/orders',async(admin)=>{
  
-    let res = await axios.get(`${url}/orders?limit=${limit}`);
+    let res = await axios.get(`${url}orders`,{
+        headers:{token:admin.token}
+    });
 
     return res.data
 })
 
 export const getUserOrders = createAsyncThunk('/userorders',async({admin,userId})=>{
-    let res = await axios.get(`${url}/orders/${userId}/orders`);
+    let res = await axios.get(`${url}orders/userOrders/${userId}`,{
+        headers:{token:admin.token}
+    });
     return res.data
 })
 
 export const deleteOrder = createAsyncThunk('delete/order',async({admin,id})=>{
 
-    let res = await axios.delete(`${url}/orders/${id}`,{
+    let res = await axios.delete(`${url}orders/${id}`,{
         headers:{token:admin.token}
     });
 
@@ -26,8 +30,8 @@ export const deleteOrder = createAsyncThunk('delete/order',async({admin,id})=>{
 })
 
 
-export const updateOrder = createAsyncThunk('update/orders',async({admin,id,orders})=>{
-    let res = await axios.put(`${url}/orders/${id}`,orders,{
+export const updateOrder = createAsyncThunk('update/orders',async({admin,id,status})=>{
+    let res = await axios.put(`${url}orders/${id}`,{status},{
         headers:{token:admin.token},
     });
 
@@ -54,12 +58,12 @@ const orderSlice = createSlice({
         },
         [deleteOrder.fulfilled]:(state,action)=>{
             state.orders = state.orders.filter((order)=>{
-                return order._id != action.payload._id;
+                return order._id !== action.payload._id;
             })
         },
         [updateOrder.fulfilled]:(state,action)=>{
             state.orders= state.orders.map((order)=>{
-                   return action.payload._id == order._id ? action.payload : order ;
+                   return action.payload._id === order._id ? action.payload : order ;
             });
         },
         [getUserOrders.fulfilled]:(state,action)=>{

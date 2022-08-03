@@ -12,7 +12,7 @@ import { getOrders, getUserOrders } from '../../redux/reducers/orderReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const List = ({limit,userId,admin}) => {
+const List = ({userId,admin}) => {
   let imgP = process.env.REACT_APP_SERVER_URL+ '/images';
   let {orders} = useSelector(state=>state.orders);
  
@@ -20,8 +20,7 @@ const List = ({limit,userId,admin}) => {
 
   useEffect(()=>{
 
-    console.log(userId)
-    !userId ? dispatch(getOrders({admin,limit})) : dispatch(getUserOrders({admin,userId})) 
+    !userId ? dispatch(getOrders(admin)) : dispatch(getUserOrders({admin,userId})) 
 
   },[userId])
 
@@ -47,14 +46,14 @@ const List = ({limit,userId,admin}) => {
                      <TableCell className="tableCell">{row._id}</TableCell>
               <TableCell className="tableCell">
                 <div className="cellWrapper">
-                  <img src={`${imgP}/${row.userId.image}`} alt="" className="image" />
-                  {row.userId.userName}
+                  <img src={`${imgP}/${row.user.image}`} alt="" className="image" />
+                  {row.user.firstName+' '+row.user.lastName}
                 </div>
               </TableCell>
               <TableCell className="tableCell">{format(row.createdAt)}</TableCell>
               <TableCell className="tableCell">{row.amount}</TableCell>
-              <TableCell className="tableCell">{row.address}</TableCell>
-              <TableCell className="tableCell">{`Online Payment`}</TableCell>
+              <TableCell className="tableCell">{row.user.address}</TableCell>
+              <TableCell className="tableCell">{row.methodOfPayment}</TableCell>
               <TableCell className="tableCell">
                 <span className={`status ${row.status}`}>{row.status}</span>
               </TableCell>

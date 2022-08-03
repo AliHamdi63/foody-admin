@@ -5,7 +5,7 @@ import cookie from 'cookiejs';
 let url = process.env.REACT_APP_SERVER_URL;
 
 export const fetchUser = createAsyncThunk('auth/login',async(admin)=>{
-        let res = await axios.post(`${url}/auth/login`,admin);
+        let res = await axios.post(`${url}auth/login`,admin);
         return res.data
 })
 
