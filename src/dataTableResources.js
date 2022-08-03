@@ -1,4 +1,4 @@
-const imgP = process.env.REACT_APP_SERVER_URL + '/images'
+const imgP = process.env.REACT_APP_SERVER_URL + 'images'
 
 export const userColumns = [
     { field: "_id", headerName: "ID", width: 250 },
