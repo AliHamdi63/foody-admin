@@ -68,6 +68,7 @@ uploadTask.on('state_changed',
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
       data.image = downloadURL;
+      console.log(downloadURL);
     });
   }
 );
