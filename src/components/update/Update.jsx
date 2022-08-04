@@ -1,12 +1,12 @@
 import './update.scss'
 
-import NoImage from '../../assets/noImage.jpg'
+import NoImage from '../../assets/noImage.jpg';
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect,useState } from 'react';
 import { userInputs} from '../../formResources';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../redux/reducers/usersReducer';
-import { uploadImage } from '../../redux/apiCall/uploadImage';
+import { imageUploader } from '../../uploadImage';
 
 
 const Update = (props) => {
@@ -15,6 +15,7 @@ const Update = (props) => {
     let dispatch = useDispatch();
     let imgP = process.env.REACT_APP_SERVER_URL + '/images';
     let {admin} = useSelector(state=>state.auth);
+    let [isfetching,setFetching] = useState(false);
  
 
     const handleChangle = (e)=>{
@@ -23,28 +24,27 @@ const Update = (props) => {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        let id = props?.item._id;
-        let inputData = data;
-        if(file){
-        let formData = new FormData();
-        let picName = Date.now() + file.name;
-        formData.append('name',picName);
-        formData.append('file',file);
-        inputData.image = picName;
-        uploadImage(formData);
-        }
-
-        dispatch(updateUser({admin,id,inputData}));
+        let id = props.item._id;
+        data.image = file;
+        dispatch(updateUser({admin,id,user:data}));
         props?.setIsupdate(false);
     }
 
+    useEffect(()=>{
+        if(typeof(file)!=='string'&&file!==null){
+          imageUploader(file,setFile,setFetching);
+        }
+      },[file])
 
+      useEffect(()=>{
+        setFile(props.item.image)
+      },[])
 
   return (
     <div className='update'>
             <div className='updateContainer'>
                 <div className='left'>
-                    <img src={file?URL.createObjectURL(file):props?.item?.image?`${imgP}/${props?.item?.image}`:NoImage} alt=''/>
+                    <img src={file?(typeof(file)==='string'?((file).startsWith('http')?file:imgP+'/'+file):URL.createObjectURL(file)):NoImage} alt=''/>
                 </div>
                 <div className='right'>
                     <form onSubmit={handleSubmit} >
@@ -66,7 +66,7 @@ const Update = (props) => {
                             </div>
                         )
                     })}
-                    <button type='submit'>Update</button>
+                    <button type='submit' disabled={isfetching}>Update</button>
                     </form>
                 </div>
             </div>

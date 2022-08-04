@@ -8,10 +8,10 @@ import {userInputs,usertitle,mealInputs,mealtitle} from '../../formResources';
 import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../redux/reducers/usersReducer';
-import { uploadImage } from '../../redux/apiCall/uploadImage';
 import { addMeal } from '../../redux/reducers/mealsReducer';
 import Ingredients from '../../components/ingredients/Ingredients';
 import Instructions from '../../components/Instructions/Instructions';
+import { imageUploader } from '../../uploadImage';
 
 const New = (props) => {
     
@@ -25,6 +25,7 @@ const New = (props) => {
     let [empty,setEmpty] = useState(false);
     let [empty2,setEmpty2] = useState(false);
     let URLStr = useRef();
+    let [isfetching,setFetching] = useState(false);
 
     useEffect(()=>{
         switch(loc.pathname){
@@ -43,46 +44,29 @@ const New = (props) => {
 
     }
 
-    function imageUploader(imageFile,data){
-        let picName = (Date.now() + imageFile.name).toString();
-        console.log(picName)
-        let formData = new FormData();
-        formData.append('name',picName);
-        formData.append('file',imageFile);
-        data.image = picName;
-        uploadImage(formData);
-    }
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        let inputData = data;
-        if(file&&typeof(file)!=='string'){
-            imageUploader(file,inputData)
-        }else{
-            data.image = file;
-        }
-        if(data?.ingredients?.image&&typeof(data.ingredients.image)!=='string'){
-            imageUploader(data.ingredients.image,data.ingredients)
-        }
-        data?.instructions?.map((instruction)=>{
-            if(instruction.image&&typeof(instruction.image)!=='string'){
-                imageUploader(instruction.image,instruction)
-            }
-        })
+        data.image = file;
+
         if(loc.pathname==="/addUser"){
-            dispatch(addUser(inputData)); 
-            console.log(inputData);  
+            dispatch(addUser(data));  
         }else if(loc.pathname==="/addMeal"){
-            dispatch(addMeal({admin,meal:inputData}));   
+            dispatch(addMeal({admin,meal:data}));   
         }
 
-   
         setFile(null);
         setData({})
         setEmpty(true);
         setEmpty2(true);
         URLStr.current.value = '';
     }
+
+    useEffect(()=>{
+        if(typeof(file)!=='string'&&file!==null){
+          imageUploader(file,setFile,setFetching);
+        }
+      },[file])
 
   return (
     <div className='new'>
@@ -117,13 +101,13 @@ const New = (props) => {
                             </div>
                         )
                     })}
-                    <button type='submit'>Send</button>
+                    <button type='submit' disabled={isfetching}>Send</button>
                     </form>
                 </div>
             </div>
             <div style={{display:loc.pathname==='/addMeal'?'block':'none'}}>
             <hr style={{margin:'20px 0',border:'1px solid #ddd',height:'0'}}/>
-            <Ingredients Ingredients={[]} status={'add'} setData={setData} empty={empty} setEmpty={setEmpty}/>
+            <Ingredients setFetching={setFetching} Ingredients={[]} status={'add'} setData={setData} empty={empty} setEmpty={setEmpty}/>
             <hr style={{margin:'20px 0',border:'1px solid #ddd',height:'0'}}/>
             <Instructions Instructions={[]} status='add' setData={setData} empty2={empty2} setEmpty2={setEmpty2}/>
             </div>

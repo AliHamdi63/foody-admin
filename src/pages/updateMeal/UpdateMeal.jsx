@@ -12,14 +12,16 @@ import Instructions from '../../components/Instructions/Instructions';
 import { useParams } from 'react-router';
 import { getMeal } from '../../redux/apiCall/singleCall';
 import { updateMeal } from '../../redux/reducers/mealsReducer';
-import {storage} from '../../firebase';
-import {  ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { imageUploader } from '../../uploadImage';
+
+
 
 
 const UpdateMeal = (props) => {
     let {id} = useParams()
     let [file,setFile] = useState(null);
     let [data,setData] = useState({});
+    let [isfetching,setFetching] = useState(false);
     let {admin} = useSelector(state=>state.auth);
     const dispatch = useDispatch();
     const imgP = process.env.REACT_APP_SERVER_URL + 'images';
@@ -34,63 +36,17 @@ const UpdateMeal = (props) => {
 
     }
 
-    function imageUploader(imageFile,data){
-    
-        let picName = (Date.now() + imageFile.name).toString();
-        const storageRef = ref(storage, picName);
-        const uploadTask = uploadBytesResumable(storageRef, imageFile);
+    useEffect(()=>{
+        if(typeof(file)!=='string'&&file!==null){
+          imageUploader(file,setFile,setFetching);
+        }
+      },[file])
 
-// Register three observers:
-// 1. 'state_changed' observer, called any time the state changes
-// 2. Error observer, called on failure
-// 3. Completion observer, called on successful completion
-uploadTask.on('state_changed', 
-  (snapshot) => {
-    // Observe state change events such as progress, pause, and resume
-    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log('Upload is ' + progress + '% done');
-    switch (snapshot.state) {
-      case 'paused':
-        console.log('Upload is paused');
-        break;
-      case 'running':
-        console.log('Upload is running');
-        break;
-    }
-  }, 
-  (err) => {
-    // Handle unsuccessful uploads
-    console.log(err)
-  }, 
-  () => {
-    // Handle successful uploads on complete
-    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      data.image = downloadURL;
-      console.log(downloadURL);
-    });
-  }
-);
-    }
-
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault();
-        let inputData = data;
-        if(file&&typeof(file)!=='string'){
-            imageUploader(file,inputData)
-        }else{
-            inputData.image = file;
-        }
-        if(data?.ingredients?.image&&typeof(data.ingredients.image)!=='string'){
-            imageUploader(data.ingredients.image,data.ingredients)
-        }
-        data?.instructions?.map((instruction)=>{
-            if(instruction.image&&typeof(instruction.image)!=='string'){
-                imageUploader(instruction.image,instruction)
-            }
-        })
-        dispatch(updateMeal({admin,id,meal:inputData}))
+        data.image = file;
+        dispatch(updateMeal({admin,id,meal:data}))
+        
     }
 
     useEffect(()=>{
@@ -130,12 +86,12 @@ uploadTask.on('state_changed',
                             </div>
                         )
                     })}
-                    <button type='submit'>Update</button>
+                    <button disabled={isfetching} type='submit'>Update</button>
                     </form>
                 </div>
             </div>
             <hr style={{margin:'20px 0',border:'1px solid #ddd',height:'0'}}/>
-            {data.ingredients&&<Ingredients Ingredients={data?.ingredients?._ingredients} ingredientsImage={data?.ingredients?.image} setData={setData} />}
+            {data.ingredients&&<Ingredients setFetching={setFetching} Ingredients={data?.ingredients?._ingredients} ingredientsImage={data?.ingredients?.image} setData={setData} />}
             <hr style={{margin:'20px 0',border:'1px solid #ddd',height:'0'}}/>
             {data.instructions&&<Instructions Instructions={data?.instructions} setData={setData} />}
         </div>

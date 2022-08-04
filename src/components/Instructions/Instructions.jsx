@@ -3,6 +3,7 @@ import './Instructions.scss'
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import noImage from '../../assets/noImage.jpg'
 import MyEditor from '../editor/MyEditor';
+import { imageUploader } from '../../uploadImage';
 
 
 const Instructions = ({setData,Instructions,empty2,setEmpty2}) => {
@@ -13,6 +14,7 @@ const Instructions = ({setData,Instructions,empty2,setEmpty2}) => {
     let [edit,setEdit] = useState({index:-1,check:false});
     let [empty,setEmpty] = useState(false);
     let [editor,setEditor] = useState(false);
+    let [isfetching,setFetching] = useState(false);
     let URLStr = useRef();
     const imgP = process.env.REACT_APP_SERVER_URL + 'images';
 
@@ -82,6 +84,13 @@ useEffect(()=>{
     })
 },[instructions])
 
+
+useEffect(()=>{
+  if(typeof(file)!=='string'&&file!==null){
+    imageUploader(file,setFile,setFetching);
+  }
+},[file])
+
   return (
     <div className='instructions'>
       <form  >
@@ -103,7 +112,7 @@ useEffect(()=>{
         <div className='formInput' style={{flexDirection:'column'}}>
           <MyEditor editor={editor} setEditor={setEditor} description={description} empty={empty} setEmpty={setEmpty} setDescription={setDescription} />
         </div>
-        <button type='submit' onClick={send}>{edit.check?"Edit":"Send"}</button>
+        <button type='submit' disabled={isfetching} onClick={send}>{edit.check?"Edit":"Send"}</button>
       </form>
       <div>
         <div className='viewInstructionContainer'>

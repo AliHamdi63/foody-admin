@@ -9,8 +9,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import Update from "../../components/update/Update";
 import { getUser } from "../../redux/apiCall/singleCall";
-import axios from "axios"
-
+import axios from "axios";
+import NoImage from '../../assets/noImage.jpg';
 
 
 const Single = () => {
@@ -67,7 +67,7 @@ const Single = () => {
 
 
   const userData = [
-    {id: 1,name : '_id',headerName: 'ID',update:'user'},
+    {id: 1,name : '_id',headerName: 'ID'},
     {id: 2,name : 'email',headerName: 'Email'},
     {id: 3,name : 'strAddress',headerName: 'Address'},
     {id: 4,name : 'createdAt',headerName: 'createdAt'},
@@ -77,7 +77,7 @@ const Single = () => {
 
   return (
     <div className='single'>
-      {isupdate && <Update type={userData[0]?.update} item={item} setIsupdate={setIsupdate}/>}
+      {isupdate && <Update item={item} setIsupdate={setIsupdate}/>}
         <Sidebar />
         <div className="singleContainer">
             <Navbar />
@@ -87,7 +87,7 @@ const Single = () => {
                 <h1 className="title">Information</h1>
                 <div className="items">
                 <img
-                src={item?`${imgP}/${item.image}`:`${imgP}/person.jpg`}
+                src={item?(typeof(item.image)==='string'?((item.image).startsWith('http')?item.image:imgP+'/'+item.image):URL.createObjectURL(item.image)):NoImage}
                 alt=""
                 className="itemImg"
               />
