@@ -12,6 +12,9 @@ import Instructions from '../../components/Instructions/Instructions';
 import { useParams } from 'react-router';
 import { getMeal } from '../../redux/apiCall/singleCall';
 import { updateMeal } from '../../redux/reducers/mealsReducer';
+import {storage} from '../../firebase';
+import {  ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 
 const UpdateMeal = (props) => {
     let {id} = useParams()
@@ -32,19 +35,48 @@ const UpdateMeal = (props) => {
     }
 
     function imageUploader(imageFile,data){
+    
         let picName = (Date.now() + imageFile.name).toString();
-        let formData = new FormData();
-        formData.append('name',picName);
-        formData.append('file',imageFile);
-        data.image = picName;
-        uploadImage(formData);
+        const storageRef = ref(storage, picName);
+        const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+// Register three observers:
+// 1. 'state_changed' observer, called any time the state changes
+// 2. Error observer, called on failure
+// 3. Completion observer, called on successful completion
+uploadTask.on('state_changed', 
+  (snapshot) => {
+    // Observe state change events such as progress, pause, and resume
+    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case 'paused':
+        console.log('Upload is paused');
+        break;
+      case 'running':
+        console.log('Upload is running');
+        break;
+    }
+  }, 
+  (err) => {
+    // Handle unsuccessful uploads
+    console.log(err)
+  }, 
+  () => {
+    // Handle successful uploads on complete
+    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      data.image = downloadURL;
+    });
+  }
+);
     }
 
     const handleSubmit=(e)=>{
         e.preventDefault();
         let inputData = data;
         if(file&&typeof(file)!=='string'){
-            console.log('a')
             imageUploader(file,inputData)
         }else{
             inputData.image = file;
