@@ -105,12 +105,12 @@ const New = (props) => {
                     </form>
                 </div>
             </div>
-            <div style={{display:loc.pathname==='/addMeal'?'block':'none'}}>
+           {loc.pathname==='/addMeal' && <div style={{display:loc.pathname==='/addMeal'?'block':'none'}}>
             <hr style={{margin:'20px 0',border:'1px solid #ddd',height:'0'}}/>
             <Ingredients setFetching={setFetching} Ingredients={[]} status={'add'} setData={setData} empty={empty} setEmpty={setEmpty}/>
             <hr style={{margin:'20px 0',border:'1px solid #ddd',height:'0'}}/>
             <Instructions Instructions={[]} status='add' setData={setData} empty2={empty2} setEmpty2={setEmpty2}/>
-            </div>
+            </div>}
         </div>
     </div>
   )

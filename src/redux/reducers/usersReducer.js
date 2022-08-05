@@ -22,7 +22,7 @@ export const deleteUser = createAsyncThunk('delete/users',async({admin,id})=>{
 
 export const addUser = createAsyncThunk('add/users',async(user)=>{
 
-    let res = await axios.post(`${url}users`,user);
+    let res = await axios.post(`${url}auth/register`,user);
     return res.data;
 })
 

@@ -11,6 +11,7 @@ import Update from "../../components/update/Update";
 import { getUser } from "../../redux/apiCall/singleCall";
 import axios from "axios";
 import NoImage from '../../assets/noImage.jpg';
+import { getAddress } from "../../address"
 
 
 const Single = () => {
@@ -69,9 +70,8 @@ const Single = () => {
   const userData = [
     {id: 1,name : '_id',headerName: 'ID'},
     {id: 2,name : 'email',headerName: 'Email'},
-    {id: 3,name : 'strAddress',headerName: 'Address'},
-    {id: 4,name : 'createdAt',headerName: 'createdAt'},
-    {id: 5,name : 'isAdmin',headerName: 'IsAdmin'},
+    {id: 3,name : 'phone',headerName: 'Phone'},
+    {id: 4,name : 'address',headerName: 'Address'},
 ];
 
 
@@ -97,7 +97,7 @@ const Single = () => {
                     return (
                       <div className="detailItem" key={el.id}>
                         <span className="itemKey">{el.headerName}</span>
-                        <span className="itemValue">{item[el.name]?.toString()}</span>
+                        <span className="itemValue">{el.name==='address'?getAddress(item[el.name]):item[el.name]?.toString()}</span>
                       </div>
                     )
                   })}

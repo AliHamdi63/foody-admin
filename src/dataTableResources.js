@@ -1,3 +1,4 @@
+import {getAddress} from './address';
 const imgP = process.env.REACT_APP_SERVER_URL + 'images'
 
 export const userColumns = [
@@ -18,6 +19,11 @@ export const userColumns = [
     {
       field: "email",
       headerName: "Email",
+      width: 230,
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
       width: 230,
     },
   ];
