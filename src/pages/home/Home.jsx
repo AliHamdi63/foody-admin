@@ -11,7 +11,6 @@ import axios from 'axios';
 
 
 const Home = () => {
-  let {users} = useSelector(state=>state.users)
   let {admin} = useSelector(state=>state.auth)
   let serverUrl = process.env.REACT_APP_SERVER_URL;
   let [data,setData] = useState([])
@@ -64,16 +63,82 @@ const Home = () => {
     gettodayIncome();
   },[])
 
+  let [userCount,setUserCount] = useState(0);
+  useEffect(()=>{
+    const getNumberOfUsers= async()=>{
+      const res = await axios.get(`${serverUrl}users/numberOfUsers`,{
+        headers:{token:admin.token}
+      })
+      setUserCount(res.data);
+    }
+    getNumberOfUsers();
+  },[])
+
+  let [orderCount,setOrderCount] = useState(0);
+  useEffect(()=>{
+    const getNumberOfOrder= async()=>{
+      const res = await axios.get(`${serverUrl}orders/numberOfOrders`,{
+        headers:{token:admin.token}
+      })
+      setOrderCount(res.data);
+    }
+    getNumberOfOrder();
+  },[])
+
+  let [allIncome,setAllIncome] = useState(0);
+  useEffect(()=>{
+    const getAllIncome= async()=>{
+      const res = await axios.get(`${serverUrl}orders/all/income`,{
+        headers:{token:admin.token}
+      })
+      setAllIncome(res.data);
+    }
+    getAllIncome();
+  },[])
+
+  let [usersDiff,setUsersDiff] = useState(0);
+  useEffect(()=>{
+    const getUsersDiff= async()=>{
+      const res = await axios.get(`${serverUrl}users/deffrence/monthly`,{
+        headers:{token:admin.token}
+      })
+      setUsersDiff(res.data);
+    }
+    getUsersDiff();
+  },[])
+
+  let [ordersDiff,setOrdersDiff] = useState(0);
+  useEffect(()=>{
+    const getOrdersDiff= async()=>{
+      const res = await axios.get(`${serverUrl}orders/deffrence/monthly`,{
+        headers:{token:admin.token}
+      })
+      setOrdersDiff(res.data);
+    }
+    getOrdersDiff();
+  },[])
+
+  let [incomeDiff,setIncomeDiff] = useState(0);
+  useEffect(()=>{
+    const getIncomeDiff= async()=>{
+      const res = await axios.get(`${serverUrl}orders/deffrenceincome/monthly`,{
+        headers:{token:admin.token}
+      })
+      setIncomeDiff(res.data);
+    }
+    getIncomeDiff();
+  },[])
+
   return (
     <div className='home'>
         <Sidebar />
       <div className='homeContainer'>
         <Navbar />
         <div className='widgets'>
-            <Wedget type='user' amount={users.length} diff={20}/>
-            <Wedget type='order' amount={100} diff={20}/>
-            <Wedget type='earning' amount={100} diff={20}/>
-            <Wedget type='balance' amount={100} diff={20}/>
+            <Wedget type='user' amount={userCount} diff={usersDiff}/>
+            <Wedget type='order' amount={orderCount} diff={ordersDiff}/>
+            <Wedget type='earning' amount={allIncome} diff={incomeDiff}/>
+            <Wedget type='balance' amount={allIncome?allIncome-300:0} diff={incomeDiff}/>
         </div>
         <div className='charts'>
             <Feature total={todayIncome}/>
@@ -81,7 +146,7 @@ const Home = () => {
         </div>
         <div className='tableContainer'>
           <p>Latest Transaction</p>
-          <List />
+          <List admin={admin}/>
         </div>
       </div>
     </div>

@@ -73,7 +73,7 @@ export const userColumns = [
       renderCell :(params)=>{
         return (
           <div className="cellWithImg">
-            <img className="cellImg" src={`${imgP+'/'+params.row.user.image}`} alt="avatar" />
+            <img className="cellImg" src={`${params.row.user.image.startsWith('http')?params.row.user.image:imgP+'/'+params.row.user.image}`} alt="avatar" />
             {`${params.row.user.firstName} ${params.row.user.lastName}`}
           </div>
         )
@@ -95,7 +95,7 @@ export const userColumns = [
       width: 200,
       renderCell :(params)=>{
         return (
-          <span>{params.row.user.address}</span>
+          <span>{getAddress(params.row.user.address)}</span>
         )
       }
     },

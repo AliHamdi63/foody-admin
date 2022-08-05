@@ -1,5 +1,6 @@
 import './Wedget.scss';
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -88,9 +89,9 @@ import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlin
             <span className='link'>{data.link}</span>
         </div>
         <div className='right'>
-            <div className='persentage'>
-                <KeyboardArrowUpIcon />
-                +{diff} %
+            <div className={`persentage ${diff<0 ? 'negative':''}`}>
+                {diff>=0 ?<KeyboardArrowUpIcon />:<KeyboardArrowDownIcon /> }
+                {diff>=0?'+'+diff+' %':diff+' %'}
             </div>
             {data.icon}
         </div>

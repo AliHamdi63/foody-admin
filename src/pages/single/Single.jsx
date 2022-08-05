@@ -110,7 +110,7 @@ const Single = () => {
             </div>
             <div className="bottom">
               <p className="title">Last Transation</p>
-               <List limit={6} userId={id}/> 
+               {id &&<List userId={id}/> }
             </div>
         
         </div>
