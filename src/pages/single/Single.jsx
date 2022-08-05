@@ -55,7 +55,7 @@ const Single = () => {
 
   useEffect(()=>{
     const getIncome = async()=>{
-      let res =await axios.get(`${serverUrl}orders/monthly/spending`,{
+      let res =await axios.get(`${serverUrl}orders/monthly/spending/${id}`,{
         headers:{token:admin.token}
       })
 
@@ -69,7 +69,7 @@ const Single = () => {
       }))
     }
 
-    getIncome();
+    id&&getIncome();
   },[id])
 
 
