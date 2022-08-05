@@ -27,11 +27,11 @@ const Single = () => {
 
   useEffect(()=>{
     dispatch(getUserOrders({admin,userId:id}))
-  })
+  },[id])
 
   useEffect(()=>{
       getUser(admin,id,setItem);
-  },[])
+  },[id])
 
   let serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -58,7 +58,7 @@ const Single = () => {
       let res =await axios.get(`${serverUrl}orders/monthly/spending`,{
         headers:{token:admin.token}
       })
-      
+
       setData(res.data.map((m)=>{
         return (
             {
@@ -70,7 +70,7 @@ const Single = () => {
     }
 
     getIncome();
-  },[])
+  },[id])
 
 
   const userData = [

@@ -17,7 +17,6 @@ export const getUserOrders = createAsyncThunk('/userorders',async({admin,userId}
     let res = await axios.get(`${url}orders/userOrders/${userId}`,{
         headers:{token:admin.token}
     });
-    console.log(res.data)
     return res.data
 })
 
