@@ -32,7 +32,7 @@ const Chat = () => {
     useEffect(()=>{
         const getadmins = async ()=>{
            try {
-            let res = await axios.get(`${serverUrl}/users/find/admin/`,{
+            let res = await axios.get(`${serverUrl}/users/admin`,{
                 headers:{
                     token : admin.token
                 }
