@@ -4,9 +4,9 @@ import axios from 'axios';
 
 let url = process.env.REACT_APP_SERVER_URL;
 
-export const getOrders = createAsyncThunk('get/orders',async(admin)=>{
+export const getOrders = createAsyncThunk('get/orders',async({admin,limit})=>{
  
-    let res = await axios.get(`${url}orders`,{
+    let res = await axios.get(`${url}orders/?limit=${limit}`,{
         headers:{token:admin.token}
     });
 

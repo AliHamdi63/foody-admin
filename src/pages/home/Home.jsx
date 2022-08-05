@@ -36,7 +36,7 @@ const Home = () => {
 
 
   useEffect(()=>{
-    dispatch(getOrders(admin))
+    dispatch(getOrders({admin,limit:6}))
   },[])
 
   useEffect(()=>{

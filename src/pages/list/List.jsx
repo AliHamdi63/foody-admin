@@ -32,7 +32,7 @@ const List = () => {
           dispatch(getMeals(admin))
           break;
       case '/orders':
-        dispatch(getOrders(admin))
+        dispatch(getOrders({admin,limit:50}))
         break;
     }
   },[list])
