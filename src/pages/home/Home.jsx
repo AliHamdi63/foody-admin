@@ -5,17 +5,18 @@ import Wedget from '../../components/wedget/Wedget';
 import Feature from '../../components/feature/Feature';
 import Chart from '../../components/chart/Chart';
 import List from '../../components/table/Table';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import {getOrders} from '../../redux/reducers/orderReducer';
 
 const Home = () => {
   let {admin} = useSelector(state=>state.auth)
   let serverUrl = process.env.REACT_APP_SERVER_URL;
   let [data,setData] = useState([])
   let [todayIncome,setTodayIncome] = useState(null);
-
+  let {orders} = useSelector(state=>state.orders);
+  let dispatch = useDispatch();
   const getMonth = (monthNum)=>{
     switch(monthNum){
       case 1 : return 'January'; break;
@@ -32,6 +33,11 @@ const Home = () => {
       case 12 : return 'December'; break;
     }
   }
+
+
+  useEffect(()=>{
+    dispatch(getOrders(admin))
+  },[])
 
   useEffect(()=>{
     const getIncome = async()=>{
@@ -146,7 +152,7 @@ const Home = () => {
         </div>
         <div className='tableContainer'>
           <p>Latest Transaction</p>
-          <List admin={admin}/>
+          <List Orders={orders}/>
         </div>
       </div>
     </div>

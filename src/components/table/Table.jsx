@@ -7,23 +7,17 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {format} from 'timeago.js'
-import { useEffect } from 'react';
-import { getOrders, getUserOrders } from '../../redux/reducers/orderReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { getAddress } from '../../address';
 
 
-const List = ({userId,admin}) => {
-  let {orders} = useSelector(state=>state.orders);
+const List = ({Orders}) => {
+  const [orders,setOrders] = useState([])
   let imgP = process.env.REACT_APP_SERVER_URL + 'images';
-  let dispatch = useDispatch()
 
   useEffect(()=>{
-
-    !userId ? dispatch(getOrders(admin)) : dispatch(getUserOrders({admin,userId})) 
-
-  },[userId])
-
+    setOrders(Orders)
+  },[Orders])
   return (
     <div className='table'>
         <TableContainer component={Paper}>
