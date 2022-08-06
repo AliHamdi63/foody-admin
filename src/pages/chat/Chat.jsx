@@ -20,7 +20,7 @@ const Chat = () => {
     useEffect(()=>{
         const getChats = async ()=>{
            try {
-            let res = await axios.get(`${serverUrl}/chats/${admin._id}`);
+            let res = await axios.get(`${serverUrl}chats/${admin._id}`);
             setUserChats(res.data)
            } catch (err) {
             console.log(err);
@@ -32,7 +32,7 @@ const Chat = () => {
     useEffect(()=>{
         const getadmins = async ()=>{
            try {
-            let res = await axios.get(`${serverUrl}/users/admin`,{
+            let res = await axios.get(`${serverUrl}users/admin`,{
                 headers:{
                     token : admin.token
                 }
@@ -49,7 +49,7 @@ const Chat = () => {
 
 
     useEffect(()=>{
-        socket.current = io('ws://localhost:8800');
+        socket.current = io('ws://localhost:4000');
         socket.current.emit('addUser',admin._id);
         socket.current.on('getUsers',(users)=>{
             setOnlineFriends(users);
@@ -76,11 +76,11 @@ const Chat = () => {
     const makenewChat =async(adminFriend)=>{
 
         try {
-            let res = await axios.get(`${serverUrl}/chats/${admin._id}/${adminFriend._id}`);    
+            let res = await axios.get(`${serverUrl}chats/${admin._id}/${adminFriend._id}`);    
  
             if(!res.data){
 
-                let res2 = await axios.post(`${serverUrl}/chats`,{
+                let res2 = await axios.post(`${serverUrl}chats`,{
                     senderId: admin._id,
                     recieverId: adminFriend._id
                 });
