@@ -49,7 +49,7 @@ const Chat = () => {
 
 
     useEffect(()=>{
-        socket.current = io('ws://localhost:4000');
+        socket.current = io('https://foody-socket-io.herokuapp.com/');
         socket.current.emit('addUser',admin._id);
         socket.current.on('getUsers',(users)=>{
             setOnlineFriends(users);
