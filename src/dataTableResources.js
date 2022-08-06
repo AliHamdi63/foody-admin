@@ -1,4 +1,5 @@
-const imgP = process.env.REACT_APP_SERVER_URL + '/images'
+import {getAddress} from './address';
+const imgP = process.env.REACT_APP_SERVER_URL + 'images'
 
 export const userColumns = [
     { field: "_id", headerName: "ID", width: 250 },
@@ -9,7 +10,7 @@ export const userColumns = [
       renderCell: (params) => {
         return (
           <div className="cellWithImg">
-            <img className="cellImg" src={imgP+'/'+params.row.image} alt="avatar" />
+            <img className="cellImg" src={`${(params.row.image).startsWith('http')?params.row.image:imgP+'/'+params.row.image}`} alt="avatar" />
             {`${params.row.firstName} ${params.row.lastName}`}
           </div>
         );
@@ -18,6 +19,11 @@ export const userColumns = [
     {
       field: "email",
       headerName: "Email",
+      width: 230,
+    },
+    {
+      field: "phone",
+      headerName: "Phone",
       width: 230,
     },
   ];
@@ -67,7 +73,7 @@ export const userColumns = [
       renderCell :(params)=>{
         return (
           <div className="cellWithImg">
-            <img className="cellImg" src={`${imgP+'/'+params.row.user.image}`} alt="avatar" />
+            <img className="cellImg" src={`${params.row.user.image.startsWith('http')?params.row.user.image:imgP+'/'+params.row.user.image}`} alt="avatar" />
             {`${params.row.user.firstName} ${params.row.user.lastName}`}
           </div>
         )
@@ -89,7 +95,7 @@ export const userColumns = [
       width: 200,
       renderCell :(params)=>{
         return (
-          <span>{params.row.user.address}</span>
+          <span>{getAddress(params.row.user.address)}</span>
         )
       }
     },

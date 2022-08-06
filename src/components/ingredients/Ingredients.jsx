@@ -2,9 +2,11 @@ import React, {  useEffect, useRef, useState } from 'react'
 import './Ingredients.scss';
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import NoImage from '../../assets/noImage.jpg';
+import { imageUploader } from '../../uploadImage';
 
 
-const Ingredients = ({Ingredients,ingredientsImage,status,setData,empty,setEmpty}) => {
+
+const Ingredients = ({Ingredients,ingredientsImage,setFetching,setData,empty,setEmpty}) => {
     let [file,setFile] = useState(null);
     let [ingredients,setIngredients] =useState([]);
     const cols = ['Quantity','Ingredient','Action'];
@@ -12,6 +14,7 @@ const Ingredients = ({Ingredients,ingredientsImage,status,setData,empty,setEmpty
 
     let Quantity = useRef();
     let Name = useRef();
+
     
     useEffect(()=>{
         setIngredients(Ingredients);
@@ -48,6 +51,12 @@ const Ingredients = ({Ingredients,ingredientsImage,status,setData,empty,setEmpty
      
     
     },[ingredients,file])
+
+    useEffect(()=>{
+        if(typeof(file)!=='string'&&file!==null){
+            imageUploader(file,setFile,setFetching);
+        }
+    },[file])
 
     const deleteIngredient= (i)=>{
         setIngredients(prev=>{

@@ -6,11 +6,13 @@ import List from '../../components/table/Table'
 import {useParams } from "react-router"
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Update from "../../components/update/Update";
 import { getUser } from "../../redux/apiCall/singleCall";
-import axios from "axios"
-
+import axios from "axios";
+import NoImage from '../../assets/noImage.jpg';
+import { getAddress } from "../../address"
+import {getUserOrders} from '../../redux/reducers/orderReducer';
 
 
 const Single = () => {
@@ -19,12 +21,17 @@ const Single = () => {
   let imgP = process.env.REACT_APP_SERVER_URL + '/images';
   let {admin} = useSelector(state=>state.auth);
   let [isupdate,setIsupdate] = useState(false);
-  let [data,setData] = useState([])
+  let [data,setData] = useState([]);
+  let {orders} = useSelector(state=>state.orders);
+  let dispatch = useDispatch();
 
+  useEffect(()=>{
+    dispatch(getUserOrders({admin,userId:id}))
+  },[id])
 
   useEffect(()=>{
       getUser(admin,id,setItem);
-  },[])
+  },[id])
 
   let serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -48,10 +55,10 @@ const Single = () => {
 
   useEffect(()=>{
     const getIncome = async()=>{
-      let res =await axios.get(`${serverUrl}users/monthly/stats`,{
+      let res =await axios.get(`${serverUrl}orders/monthly/spending/${id}`,{
         headers:{token:admin.token}
       })
-      
+
       setData(res.data.map((m)=>{
         return (
             {
@@ -62,22 +69,21 @@ const Single = () => {
       }))
     }
 
-    getIncome();
-  },[])
+    id&&getIncome();
+  },[id])
 
 
   const userData = [
-    {id: 1,name : '_id',headerName: 'ID',update:'user'},
+    {id: 1,name : '_id',headerName: 'ID'},
     {id: 2,name : 'email',headerName: 'Email'},
-    {id: 3,name : 'strAddress',headerName: 'Address'},
-    {id: 4,name : 'createdAt',headerName: 'createdAt'},
-    {id: 5,name : 'isAdmin',headerName: 'IsAdmin'},
+    {id: 3,name : 'phone',headerName: 'Phone'},
+    {id: 4,name : 'address',headerName: 'Address'},
 ];
 
 
   return (
     <div className='single'>
-      {isupdate && <Update type={userData[0]?.update} item={item} setIsupdate={setIsupdate}/>}
+      {isupdate && <Update item={item} setIsupdate={setIsupdate}/>}
         <Sidebar />
         <div className="singleContainer">
             <Navbar />
@@ -87,7 +93,7 @@ const Single = () => {
                 <h1 className="title">Information</h1>
                 <div className="items">
                 <img
-                src={item?`${imgP}/${item.image}`:`${imgP}/person.jpg`}
+                src={item?(typeof(item.image)==='string'?((item.image).startsWith('http')?item.image:imgP+'/'+item.image):URL.createObjectURL(item.image)):NoImage}
                 alt=""
                 className="itemImg"
               />
@@ -97,7 +103,7 @@ const Single = () => {
                     return (
                       <div className="detailItem" key={el.id}>
                         <span className="itemKey">{el.headerName}</span>
-                        <span className="itemValue">{item[el.name]?.toString()}</span>
+                        <span className="itemValue">{el.name==='address'?getAddress(item[el.name]):item[el.name]?.toString()}</span>
                       </div>
                     )
                   })}
@@ -110,7 +116,7 @@ const Single = () => {
             </div>
             <div className="bottom">
               <p className="title">Last Transation</p>
-               <List limit={6} userId={id}/> 
+               <List Orders={orders}/>
             </div>
         
         </div>

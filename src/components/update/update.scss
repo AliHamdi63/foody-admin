@@ -8,6 +8,7 @@ position: fixed;
 z-index: 2;
 background-color: rgba(0,0,0,0.8);      
 
+
         .updateContainer{
             -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
             box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
@@ -19,6 +20,21 @@ background-color: rgba(0,0,0,0.8);
             background-color: white;
             border-radius: 10px;
             width: 60%;
+            position: relative;
+
+            .close{
+                position: absolute;
+                top: 0;
+                right: 0;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                padding: 20px;
+                font-size: 30px;
+                color: red;
+                font-weight: bolder;
+                cursor: pointer;
+            }
 
             .left{
                 display: flex;
@@ -73,7 +89,11 @@ background-color: rgba(0,0,0,0.8);
                         cursor: pointer;
                         margin-top: 10px;                        
                    }
-                
+                   
+                   &:disabled{
+                    background-color: #ddd;
+                    cursor: not-allowed;
+                   }
             }
         }
     }

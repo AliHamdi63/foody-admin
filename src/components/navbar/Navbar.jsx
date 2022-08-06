@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
  const Navbar = () => {
   const {admin} = useSelector(state=>state.auth);
-  let imgP = process.env.REACT_APP_SERVER_URL + '/images';
+  let imgP = process.env.REACT_APP_SERVER_URL + 'images';
 
   return (
     <div className='navbar'>
@@ -49,7 +49,7 @@ import { Link } from 'react-router-dom';
           </Link>
         </div>
         <div className='item'>
-          <img src={`${imgP}/${admin.image}`} className='avatar'/>
+          <img src={`${admin.image}`} className='avatar'/>
         </div>
         <div className='item'>
           <SettingsOutlinedIcon className='icon'/>

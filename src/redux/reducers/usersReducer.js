@@ -26,8 +26,8 @@ export const addUser = createAsyncThunk('add/users',async(user)=>{
     return res.data;
 })
 
-export const updateUser = createAsyncThunk('update/users',async({admin,id,inputData})=>{
-    let res = await axios.put(`${url}users/${id}`,inputData,{
+export const updateUser = createAsyncThunk('update/users',async({admin,id,user})=>{
+    let res = await axios.put(`${url}users/${id}`,user,{
         headers:{token:admin.token},
     });
 

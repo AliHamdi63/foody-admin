@@ -12,11 +12,16 @@ import Instructions from '../../components/Instructions/Instructions';
 import { useParams } from 'react-router';
 import { getMeal } from '../../redux/apiCall/singleCall';
 import { updateMeal } from '../../redux/reducers/mealsReducer';
+import { imageUploader } from '../../uploadImage';
+
+
+
 
 const UpdateMeal = (props) => {
     let {id} = useParams()
     let [file,setFile] = useState(null);
     let [data,setData] = useState({});
+    let [isfetching,setFetching] = useState(false);
     let {admin} = useSelector(state=>state.auth);
     const dispatch = useDispatch();
     const imgP = process.env.REACT_APP_SERVER_URL + 'images';
@@ -31,33 +36,17 @@ const UpdateMeal = (props) => {
 
     }
 
-    function imageUploader(imageFile,data){
-        let picName = (Date.now() + imageFile.name).toString();
-        let formData = new FormData();
-        formData.append('name',picName);
-        formData.append('file',imageFile);
-        data.image = picName;
-        uploadImage(formData);
-    }
+    useEffect(()=>{
+        if(typeof(file)!=='string'&&file!==null){
+          imageUploader(file,setFile,setFetching);
+        }
+      },[file])
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault();
-        let inputData = data;
-        if(file&&typeof(file)!=='string'){
-            console.log('a')
-            imageUploader(file,inputData)
-        }else{
-            inputData.image = file;
-        }
-        if(data?.ingredients?.image&&typeof(data.ingredients.image)!=='string'){
-            imageUploader(data.ingredients.image,data.ingredients)
-        }
-        data?.instructions?.map((instruction)=>{
-            if(instruction.image&&typeof(instruction.image)!=='string'){
-                imageUploader(instruction.image,instruction)
-            }
-        })
-        dispatch(updateMeal({admin,id,meal:inputData}))
+        data.image = file;
+        dispatch(updateMeal({admin,id,meal:data}))
+        
     }
 
     useEffect(()=>{
@@ -97,12 +86,12 @@ const UpdateMeal = (props) => {
                             </div>
                         )
                     })}
-                    <button type='submit'>Update</button>
+                    <button disabled={isfetching} type='submit'>Update</button>
                     </form>
                 </div>
             </div>
             <hr style={{margin:'20px 0',border:'1px solid #ddd',height:'0'}}/>
-            {data.ingredients&&<Ingredients Ingredients={data?.ingredients?._ingredients} ingredientsImage={data?.ingredients?.image} setData={setData} />}
+            {data.ingredients&&<Ingredients setFetching={setFetching} Ingredients={data?.ingredients?._ingredients} ingredientsImage={data?.ingredients?.image} setData={setData} />}
             <hr style={{margin:'20px 0',border:'1px solid #ddd',height:'0'}}/>
             {data.instructions&&<Instructions Instructions={data?.instructions} setData={setData} />}
         </div>

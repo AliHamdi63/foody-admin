@@ -7,23 +7,17 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {format} from 'timeago.js'
-import { useEffect } from 'react';
-import { getOrders, getUserOrders } from '../../redux/reducers/orderReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { getAddress } from '../../address';
 
 
-const List = ({userId,admin}) => {
-  let imgP = process.env.REACT_APP_SERVER_URL+ '/images';
-  let {orders} = useSelector(state=>state.orders);
- 
-  let dispatch = useDispatch()
+const List = ({Orders}) => {
+  const [orders,setOrders] = useState([])
+  let imgP = process.env.REACT_APP_SERVER_URL + 'images';
 
   useEffect(()=>{
-
-    !userId ? dispatch(getOrders(admin)) : dispatch(getUserOrders({admin,userId})) 
-
-  },[userId])
-
+    setOrders(Orders)
+  },[Orders])
   return (
     <div className='table'>
         <TableContainer component={Paper}>
@@ -46,13 +40,13 @@ const List = ({userId,admin}) => {
                      <TableCell className="tableCell">{row._id}</TableCell>
               <TableCell className="tableCell">
                 <div className="cellWrapper">
-                  <img src={`${imgP}/${row.user.image}`} alt="" className="image" />
+                  <img src={row.user.image.startsWith('http')?row.user.image:imgP+"/"+ row.user.image} alt="" className="image" />
                   {row.user.firstName+' '+row.user.lastName}
                 </div>
               </TableCell>
               <TableCell className="tableCell">{format(row.createdAt)}</TableCell>
               <TableCell className="tableCell">{row.amount}</TableCell>
-              <TableCell className="tableCell">{row.user.address}</TableCell>
+              <TableCell className="tableCell">{getAddress(row.user.address)}</TableCell>
               <TableCell className="tableCell">{row.methodOfPayment}</TableCell>
               <TableCell className="tableCell">
                 <span className={`status ${row.status}`}>{row.status}</span>

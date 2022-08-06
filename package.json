@@ -17,6 +17,7 @@
     "cookiejs": "^2.1.1",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "firebase": "^9.9.1",
     "html-react-parser": "^3.0.1",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",
