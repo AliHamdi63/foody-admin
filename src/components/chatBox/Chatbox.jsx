@@ -21,7 +21,7 @@ const Chatbox = ({messages,admin,currentChat,setMessages,setSendMess}) => {
         setSendMess({...message,recieverId})
         setval('');
     try {
-        let res = await axios.post(`${serverUrl}/messages`,message);
+        let res = await axios.post(`${serverUrl}messages`,message);
         setMessages((prev)=>[...prev,res.data])
         
     } catch (err) {
