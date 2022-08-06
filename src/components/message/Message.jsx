@@ -26,7 +26,6 @@ const Message = ({message,admin}) => {
 
   return (
     <>
-    {console.log(admin._id,message.senderId)}
     <div ref={lastMessage} className={admin._id==message.senderId?"message own":'message'}>
                 <div className="messageInfo">
                     <img src={sender?`${sender.image}`:noImage} className="image"/>

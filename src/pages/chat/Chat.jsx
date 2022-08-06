@@ -66,9 +66,7 @@ const Chat = () => {
 
     useEffect(()=>{
         socket.current.on('recieveMessage',(data)=>{
-            console.log(messages)
             setMessages((prev)=>{return [...prev,data]});
-            console.log(data)
         })
     },[])
 
@@ -84,7 +82,6 @@ const Chat = () => {
                     senderId: admin._id,
                     recieverId: adminFriend._id
                 });
-                console.log(res2.data)
                 setUserChats([res2.data,...userChats])
             }
            } catch (err) {
@@ -107,8 +104,8 @@ const Chat = () => {
                     return (
                             <Fragment key={admin._id}>
                             <div className="admin" onClick={()=>makenewChat(admin)}>
-                                <img src={`${imgP}/${admin?.image}`} />
-                                <span >{admin?.userName}</span>
+                                <img src={`${admin?.image}`} />
+                                <span >{admin?.firstName} {admin?.lastName}</span>
                             </div>
                             </Fragment>
                     )

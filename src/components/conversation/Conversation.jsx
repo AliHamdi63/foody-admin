@@ -36,7 +36,7 @@ const handleConversationMessage =async(id)=>{
                     {onlineFriends?.some((el)=>{return (el.userId ==friend?._id)}) &&<div className="onlineDot"></div>}
                 </div>
                 <div className="info">
-                    <span className="friendName">{friend?.userName}</span>
+                    <span className="friendName">{friend?.firstName} {friend?.lastName}</span>
                     <span className="online">{onlineFriends?.some((el)=>{return (el.userId ==friend?._id)})?"Online":"Offline"}</span>
                 </div>
             </div>
