@@ -20,7 +20,7 @@ const Chat = () => {
     useEffect(()=>{
         const getChats = async ()=>{
            try {
-            let res = await axios.get(`${serverUrl}/chats/${admin._id}`);
+            let res = await axios.get(`${serverUrl}chats/${admin._id}`);
             setUserChats(res.data)
            } catch (err) {
             console.log(err);
@@ -32,7 +32,7 @@ const Chat = () => {
     useEffect(()=>{
         const getadmins = async ()=>{
            try {
-            let res = await axios.get(`${serverUrl}/users/admin`,{
+            let res = await axios.get(`${serverUrl}users/admin`,{
                 headers:{
                     token : admin.token
                 }
@@ -49,7 +49,7 @@ const Chat = () => {
 
 
     useEffect(()=>{
-        socket.current = io('ws://localhost:8800');
+        socket.current = io('https://foody-socket.herokuapp.com');
         socket.current.emit('addUser',admin._id);
         socket.current.on('getUsers',(users)=>{
             setOnlineFriends(users);
@@ -66,9 +66,7 @@ const Chat = () => {
 
     useEffect(()=>{
         socket.current.on('recieveMessage',(data)=>{
-            console.log(messages)
             setMessages((prev)=>{return [...prev,data]});
-            console.log(data)
         })
     },[])
 
@@ -76,15 +74,14 @@ const Chat = () => {
     const makenewChat =async(adminFriend)=>{
 
         try {
-            let res = await axios.get(`${serverUrl}/chats/${admin._id}/${adminFriend._id}`);    
+            let res = await axios.get(`${serverUrl}chats/${admin._id}/${adminFriend._id}`);    
  
             if(!res.data){
 
-                let res2 = await axios.post(`${serverUrl}/chats`,{
+                let res2 = await axios.post(`${serverUrl}chats`,{
                     senderId: admin._id,
                     recieverId: adminFriend._id
                 });
-                console.log(res2.data)
                 setUserChats([res2.data,...userChats])
             }
            } catch (err) {
@@ -107,8 +104,8 @@ const Chat = () => {
                     return (
                             <Fragment key={admin._id}>
                             <div className="admin" onClick={()=>makenewChat(admin)}>
-                                <img src={`${imgP}/${admin?.image}`} />
-                                <span >{admin?.userName}</span>
+                                <img src={`${admin?.image}`} />
+                                <span >{admin?.firstName} {admin?.lastName}</span>
                             </div>
                             </Fragment>
                     )
