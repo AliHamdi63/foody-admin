@@ -1,3 +1,4 @@
+import './App.scss';
 import { useSelector } from "react-redux";
 import Auth from "./pages/auth/Auth";
 import Home from './pages/home/Home';
@@ -12,9 +13,10 @@ import UpdateMeal from "./pages/updateMeal/UpdateMeal";
 function App() {
 
   let {admin} = useSelector(state=>state.auth);
+  let {value} = useSelector(state=>state.darkmode);
 
   return (
-    <div className="App">
+    <div className={value?'App darkmode':'App'}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={admin ? <Home />: <Navigate to={`/login`} />}/>

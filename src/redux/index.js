@@ -3,6 +3,7 @@ import authReducer from './reducers/authReducer';
 import mealsReducer from './reducers/mealsReducer';
 import usersReducer from './reducers/usersReducer';
 import orderReducer from './reducers/orderReducer';
+import darkmodeReducer from './reducers/darkmode';
 
 const store = configureStore({
     reducer:{
@@ -10,6 +11,7 @@ const store = configureStore({
         users: usersReducer,
         meals :mealsReducer,
         orders : orderReducer,
+        darkmode:darkmodeReducer
     }
 });
 

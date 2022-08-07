@@ -11,6 +11,7 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useDispatch, useSelector } from 'react-redux';
 import {logOut} from '../../redux/reducers/authReducer';
 import { Link } from 'react-router-dom';
+import { makedark, makelight } from '../../redux/reducers/darkmode';
 
  const Sidebar = () => {
   const {admin} = useSelector(state=>state.auth);
@@ -92,8 +93,8 @@ import { Link } from 'react-router-dom';
       <div className='bottom'>
         <p>Theme</p>
         <div className='themeContainer'>
-          <div></div>
-          <div></div>
+          <div onClick={()=>dispatch(makelight())}></div>
+          <div onClick={()=>dispatch(makedark())}></div>
         </div>
       </div>
     </div>

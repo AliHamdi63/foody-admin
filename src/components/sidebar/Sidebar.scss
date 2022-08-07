@@ -74,6 +74,9 @@
                     &:first-child{
                         background-color: white;
                     }
+                    &:last-child{
+                        border: 1px solid #aaa;
+                    }
                 }
             }
                 
