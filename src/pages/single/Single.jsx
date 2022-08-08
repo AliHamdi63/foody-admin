@@ -31,7 +31,7 @@ const Single = () => {
 
   useEffect(()=>{
       getUser(admin,id,setItem);
-  },[id])
+  },[id,isupdate])
 
   let serverUrl = process.env.REACT_APP_SERVER_URL;
 

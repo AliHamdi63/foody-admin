@@ -21,7 +21,7 @@ const List = ({Orders}) => {
   return (
     <div className='table'>
         <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table className='t' sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
           <TableCell className="tableCell">Tracking ID</TableCell>

@@ -7,12 +7,19 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {toggleMode} from '../../redux/reducers/darkmode';
+
 
  const Navbar = () => {
   const {admin} = useSelector(state=>state.auth);
   let imgP = process.env.REACT_APP_SERVER_URL + 'images';
+  let dispatch = useDispatch();
+  
+  const toggledark =()=>{
+    dispatch(toggleMode())
+  }
 
   return (
     <div className='navbar'>
@@ -28,7 +35,9 @@ import { Link } from 'react-router-dom';
           English
         </div>
         <div className='item'>
+          <span onClick={toggledark}>
           <DarkModeOutlinedIcon className='icon'/>
+          </span>
         </div>
         <div className='item'>
           <FullscreenExitOutlinedIcon className='icon'/>

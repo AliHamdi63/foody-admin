@@ -8,8 +8,8 @@ import {io} from 'socket.io-client';
 import axios from 'axios';
 const Chat = () => {
     let [userChats,setUserChats] = useState([]);
-    let [messages,setMessages] = useState(null);
-    let [currentChat,setCurrentChat] = useState();
+    let [messages,setMessages] = useState([]);
+    let [currentChat,setCurrentChat] = useState(null);
     let [onlineFriends,setOnlineFriends] = useState(null);
     let [sendMess,setSendMess] = useState(null);
     let {admin} = useSelector(state=>state.auth);
