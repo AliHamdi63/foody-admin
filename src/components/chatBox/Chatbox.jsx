@@ -37,7 +37,7 @@ const Chatbox = ({messages,admin,currentChat,setMessages,setSendMess}) => {
   return (
     <div className='chatbox'>
 
-        {messages &&
+        {currentChat &&
             <>
             <div className='messageContainer'>
             {messages?.map((message)=>{
