@@ -28,54 +28,6 @@ export const userInputs = [
       type: "password",
       name: 'password'
     },
-    {
-      id: 5,
-      label: "Phone",
-      type: "phone",
-      name: 'phone'
-    },
-    {
-      id: 6,
-      label: "apartment Number",
-      type: "text",
-      placeholder: "6",
-      name: 'apartmentNumber'
-    },
-    {
-      id: 7,
-      label: "floor Number",
-      type: "text",
-      placeholder: "2",
-      name: 'floorNumber'
-    },
-    {
-      id: 8,
-      label: "Building Number",
-      type: "text",
-      placeholder: "18",
-      name: 'BuildingNumber'
-    },
-    {
-      id: 9,
-      label: "street",
-      type: "text",
-      placeholder: "mahmoud kotb",
-      name: 'street'
-    },
-    {
-      id: 10,
-      label: "area",
-      type: "text",
-      placeholder: "masr elgdeda",
-      name: 'area'
-    },
-    {
-      id: 11,
-      label: "city",
-      type: "text",
-      placeholder: "Cairo",
-      name: 'city'
-    },
   ];
   
   export const mealtitle = 'Add Meal';
