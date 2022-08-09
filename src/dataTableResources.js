@@ -2,7 +2,7 @@ import {getAddress} from './address';
 const imgP = process.env.REACT_APP_SERVER_URL + 'images'
 
 export const userColumns = [
-    { field: "_id", headerName: "ID", width: 250 },
+    { field: "_id", headerName: "ID", width: 230 },
     {
       field: "User",
       headerName: "User",
@@ -24,16 +24,26 @@ export const userColumns = [
     {
       field: "phone",
       headerName: "Phone",
-      width: 230,
+      width: 130,
+    },
+    {
+      field: "address",
+      headerName: "address",
+      width: 300,
+      renderCell :(params)=>{
+        return (
+          <span>{getAddress(params.row.user?.address||'empty')}</span>
+        )
+      }
     },
   ];
 
   export const mealColumns = [
-    { field: "_id", headerName: "ID", width: 240 },
+    { field: "_id", headerName: "ID", width: 230 },
     {
       field: "name",
       headerName: "Meal",
-      width: 280,
+      width: 300,
       renderCell: (params) => {
         return (
           <div className="cellWithImg">
@@ -44,14 +54,17 @@ export const userColumns = [
       },
     },
     {
-      field: "description",
-      headerName: "Description",
+      field: "addons",
+      headerName: "addons",
       width: 250,
     },
     {
       field: "price",
       headerName: "Price",
-      width: 100,
+      width: 90,
+      renderCell:(params)=>{
+          return (params.row.price+'Egp')
+      }
     },
     {
       field: "category",
@@ -69,12 +82,12 @@ export const userColumns = [
     {
       field:'_id',
       headerName: "Order ID",
-      width: 250,
+      width: 220,
     },
     {
       field:'user',
       headerName: "Customer",
-      width: 180,
+      width: 170,
       renderCell :(params)=>{
         return (
           <div className="cellWithImg">
@@ -87,32 +100,35 @@ export const userColumns = [
     {
       field:'createdAt',
       headerName: "Date",
-      width: 100,
+      width: 130,
       renderCell :(params)=>{
         return (
-          <span>{(params.row.createdAt).toDateString()}</span>
+          <span>{new Date(params.row.createdAt).toDateString()}</span>
         )
       }
     },
     {
       field:'amount',
       headerName: "Amount",
-      width: 100,
+      width: 90,
+      renderCell:(params)=>{
+          return (params.row.amount+'Egp')
+      }
     },
     {
       field:'address',
       headerName: "Address",
-      width: 250,
+      width: 280,
       renderCell :(params)=>{
         return (
-          <span>{getAddress(params.row.user.address)}</span>
+          <span>{getAddress(params.row.user?.address)}</span>
         )
       }
     },
     {
       field:'payment',
       headerName: "payment method",
-      width: 150,
+      width: 130,
       renderCell :(params)=>{
         return (
           <span>{params.row.methodOfPayment}</span>

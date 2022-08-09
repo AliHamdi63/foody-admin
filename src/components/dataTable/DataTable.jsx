@@ -34,7 +34,7 @@ const DataTable = (props)=> {
     {
         field:'action',
         headerName : 'action',
-        width: 150,
+        width: 130,
         renderCell:(params)=>{
             return(
                 <div className='action'>
