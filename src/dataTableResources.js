@@ -29,11 +29,11 @@ export const userColumns = [
   ];
 
   export const mealColumns = [
-    { field: "_id", headerName: "ID", width: 250 },
+    { field: "_id", headerName: "ID", width: 240 },
     {
       field: "name",
       headerName: "Meal",
-      width: 250,
+      width: 280,
       renderCell: (params) => {
         return (
           <div className="cellWithImg">
