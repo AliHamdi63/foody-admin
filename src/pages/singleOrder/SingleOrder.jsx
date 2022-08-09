@@ -100,7 +100,7 @@ const SingleOrder = () => {
                 </div>
                 <div className="info">
                     <span className="key">Amount: </span>
-                    <span className="value">{data?.amount}$</span>
+                    <span className="value">{data?.amount}Egp</span>
                 </div>
                 <div className={`info`}>
                     <span className="key">Status: </span>
