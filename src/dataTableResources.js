@@ -69,12 +69,12 @@ export const userColumns = [
     {
       field:'_id',
       headerName: "Order ID",
-      width: 200,
+      width: 250,
     },
     {
       field:'user',
       headerName: "Customer",
-      width: 200,
+      width: 180,
       renderCell :(params)=>{
         return (
           <div className="cellWithImg">
@@ -88,6 +88,11 @@ export const userColumns = [
       field:'createdAt',
       headerName: "Date",
       width: 100,
+      renderCell :(params)=>{
+        return (
+          <span>{(params.row.createdAt).toDateString()}</span>
+        )
+      }
     },
     {
       field:'amount',
@@ -97,7 +102,7 @@ export const userColumns = [
     {
       field:'address',
       headerName: "Address",
-      width: 200,
+      width: 250,
       renderCell :(params)=>{
         return (
           <span>{getAddress(params.row.user.address)}</span>
