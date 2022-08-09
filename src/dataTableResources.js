@@ -19,22 +19,12 @@ export const userColumns = [
     {
       field: "email",
       headerName: "Email",
-      width: 230,
+      width: 260,
     },
     {
       field: "phone",
       headerName: "Phone",
-      width: 130,
-    },
-    {
-      field: "address",
-      headerName: "address",
-      width: 300,
-      renderCell :(params)=>{
-        return (
-          <span>{getAddress(params.row.user?.address||'empty')}</span>
-        )
-      }
+      width: 160,
     },
   ];
 
