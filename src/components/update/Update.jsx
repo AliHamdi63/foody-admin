@@ -75,7 +75,7 @@ const Update = (props) => {
                             </div>
                             <div className='formInput'>
                             <label>Last Name</label>
-                            <input required={true} defaultValue={props?.item['lastName']} name='lastname' onChange={handleChangle} />
+                            <input required={true} defaultValue={props?.item['lastName']} name='lastName' onChange={handleChangle} />
                             </div>
                             <div className='formInput'>
                             <label>Email</label>
