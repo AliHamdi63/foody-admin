@@ -40,9 +40,6 @@ import {toggleMode} from '../../redux/reducers/darkmode';
           </span>
         </div>
         <div className='item'>
-          <FullscreenExitOutlinedIcon className='icon'/>
-        </div>
-        <div className='item'>
           <NotificationsNoneOutlinedIcon className='icon'/>
           <div className='counter'>1</div>
         </div>
