@@ -85,7 +85,7 @@ import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlin
     <div className='wedget'>
         <div className='left'>
             <span className='title'>{data.title}</span>
-            <span className='counter'>{data.isMoney&&'$'}{amount}</span>
+            <span className='counter'>{amount}{data.isMoney&&'Egp'}</span>
             <span className='link'>{data.link}</span>
         </div>
         <div className='right'>
