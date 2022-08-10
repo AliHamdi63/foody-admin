@@ -87,7 +87,7 @@ const SingleOrder = () => {
                                 </div>
                                 <div className="info">
                                 <span className="key">Price: </span>
-                                <span className="value">{meal?.meal?.price}$</span>
+                                <span className="value">Egp{meal?.meal?.price}</span>
                                 </div>
                                 <div className="info">
                                 <span className="key">Quantity: </span>
@@ -100,7 +100,7 @@ const SingleOrder = () => {
                 </div>
                 <div className="info">
                     <span className="key">Amount: </span>
-                    <span className="value">{data?.amount}Egp</span>
+                    <span className="value">Egp{data?.amount}</span>
                 </div>
                 <div className={`info`}>
                     <span className="key">Status: </span>
