@@ -49,7 +49,6 @@ import {toggleMode} from '../../redux/reducers/darkmode';
         <div className='item'>
           <Link to='/chat' style={{color:'inherit'}}>
           <ChatBubbleOutlineOutlinedIcon className='icon'/>
-          <div className='counter'>1</div>
           </Link>
         </div>
         <div className='item'>
