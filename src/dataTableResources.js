@@ -53,7 +53,7 @@ export const userColumns = [
       headerName: "Price",
       width: 90,
       renderCell:(params)=>{
-          return (params.row.price+'Egp')
+          return ('Egp'+params.row.price)
       }
     },
     {
@@ -102,7 +102,7 @@ export const userColumns = [
       headerName: "Amount",
       width: 90,
       renderCell:(params)=>{
-          return (params.row.amount+'Egp')
+          return ('Egp'+params.row.amount)
       }
     },
     {
