@@ -110,6 +110,7 @@ const SingleOrder = () => {
                         {data?.status!=="pending" &&<option value={`pending`}>Pending</option>}
                         {data?.status!=="approved"&&<option value={`approved`}>Approved</option>}
                         {data?.status!=="rejected"&&<option value={`rejected`}>Rejected</option>}
+                        {data?.status!=="completed"&&<option value={`completed`}>completed</option>}
                     </select>
                     <button className="confirm" onClick={updateorder}>Confirm</button>
                 </div>
