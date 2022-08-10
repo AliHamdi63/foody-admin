@@ -71,19 +71,19 @@ const Update = (props) => {
                     </div>
                             <div className='formInput'>
                             <label>First Name</label>
-                            <input defaultValue={props?.item['firstName']} name='firstName' onChange={handleChangle} />
+                            <input required={true} defaultValue={props?.item['firstName']} name='firstName' onChange={handleChangle} />
                             </div>
                             <div className='formInput'>
                             <label>Last Name</label>
-                            <input defaultValue={props?.item['lastName']} name='lastname' onChange={handleChangle} />
+                            <input required={true} defaultValue={props?.item['lastName']} name='lastName' onChange={handleChangle} />
                             </div>
                             <div className='formInput'>
                             <label>Email</label>
-                            <input defaultValue={props?.item['email']} name='email' onChange={handleChangle} />
+                            <input required={true} type='email' defaultValue={props?.item['email']} name='email' pattern='[a-z]+([.]?[a-z]+)?@[a-z]+[.][a-z]+' onChange={handleChangle} />
                             </div>
                             <div className='formInput'>
                             <label>password</label>
-                            <input name='password' onChange={handleChangle} />
+                            <input  name='password' onChange={handleChangle} />
                             </div>
                             <div className='formInput'>
                             <label>Phone</label>

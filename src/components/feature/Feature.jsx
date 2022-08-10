@@ -17,7 +17,7 @@ const Feature = ({total}) => {
                 <CircularProgressbar value={`70`} text={`70%`} strokeWidth={`5`}/>
             </div>
             <p className='title'>Total sales made today</p>
-            <p className='amount'>${total}</p>
+            <p className='amount'>{total}Egp</p>
             <p className='desc'>Previous transactions processing. Last payments may not be included.</p>
             <div className='summery'>
                 <div className='item'>

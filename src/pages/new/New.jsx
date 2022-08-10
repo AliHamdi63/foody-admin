@@ -44,7 +44,6 @@ const New = (props) => {
 
     }
 
-
     const handleSubmit=(e)=>{
         e.preventDefault();
         data.image = file;
@@ -97,7 +96,7 @@ const New = (props) => {
                         return(
                             <div className='formInput' key={input?.id}>
                             <label>{input?.label}</label>
-                            <input value={data[input.name]||''} name={input?.name} onChange={handleChangle} type={input?.type} placeholder={input?.placeholder} />
+                            <input required={true} minLength={input.type==='passwoed'?4:3} value={data[input.name]||''} name={input?.name} onChange={handleChangle} type={input?.type} placeholder={input?.placeholder} />
                             </div>
                         )
                     })}

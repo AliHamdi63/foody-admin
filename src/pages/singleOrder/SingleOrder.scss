@@ -84,6 +84,10 @@
                 background-color: rgba(255, 0, 0, 0.05);
                 color: crimson;
               }
+              &.completed {
+                background-color: rgb(114, 114, 241);
+                color: blue;
+              }
            }
 
         select{
