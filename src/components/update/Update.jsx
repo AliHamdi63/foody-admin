@@ -83,7 +83,7 @@ const Update = (props) => {
                             </div>
                             <div className='formInput'>
                             <label>password</label>
-                            <input required={true} name='password' onChange={handleChangle} />
+                            <input  name='password' onChange={handleChangle} />
                             </div>
                             <div className='formInput'>
                             <label>Phone</label>
