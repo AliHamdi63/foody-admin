@@ -36,7 +36,7 @@ function App() {
           <Route path="/addMeal" element={admin ?<New />: <Navigate to='/login' /> } />
           
           <Route path="/chat" element={admin ?<Chat />: <Navigate to='/login' /> } />
-          <Route path="/vediochat" element={admin?<ContextProvider><VedioChat /></ContextProvider>:<Navigate to='/login' />} />
+          {/* <Route path="/vediochat" element={admin?<ContextProvider><VedioChat /></ContextProvider>:<Navigate to='/login' />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
