@@ -60,7 +60,9 @@ const ContextProvider = ({ children }) => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
     myVideo.current.srcObject = stream;
     peer.on('signal', (data) => {
-      socket.emit('callUser', { userToCall: id, signalData: data, from: me });
+      socket.emit('callUser', { userToCall: id, signalData: data, from: online.find((obj)=>{
+        return obj.userId === admin._id
+      }).socketId });
     });
 
     peer.on('stream', (currentStream) => {
