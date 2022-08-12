@@ -92,7 +92,6 @@ const ContextProvider = ({ children }) => {
       userVideo,
       stream,
       callEnded,
-      me,
       online,
       callUser,
       leaveCall,
