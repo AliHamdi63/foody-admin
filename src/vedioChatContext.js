@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const SocketContext = createContext();
 
-const socket = io('http://localhost:5000');
+const socket = io('https://foody-video-chat.herokuapp.com/');
 
 
 const ContextProvider = ({ children }) => {
@@ -13,7 +13,6 @@ const ContextProvider = ({ children }) => {
   const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
   const [call, setCall] = useState({});
-  const [me, setMe] = useState('');
   const [online, setOnline] = useState([]);
   const {admin} = useSelector(state=>state.auth);
 
