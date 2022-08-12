@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const SocketContext = createContext();
 
-const socket = io('https://foody-video-chat.herokuapp.com/');
+const socket = io('https://foody-video-chat.herokuapp.com');
 
 
 const ContextProvider = ({ children }) => {
