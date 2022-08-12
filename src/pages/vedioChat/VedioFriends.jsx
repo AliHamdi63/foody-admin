@@ -28,7 +28,7 @@ const {
         getAdmins();
     },[])
   return (
-    <div className='friends'>
+    <div className='vediofriends'>
       {friends.map((friend)=>{
         return (
             <div className='friend' key={friend?._id}>
