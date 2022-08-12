@@ -36,6 +36,10 @@ const ContextProvider = ({ children }) => {
     socket.on('callUser', ({ from, signal }) => {
       setCall({ isReceivingCall: true, from, signal });
     });
+
+    socket.on('callEnded',()=>{
+        window.location.reload();
+    })
   }, []);
 
   const answerCall = () => {
