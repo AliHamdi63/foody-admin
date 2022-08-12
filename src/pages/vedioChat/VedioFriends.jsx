@@ -8,7 +8,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { SocketContext } from '../../vedioChatContext';
 import { useContext } from 'react';
 
-const Friends = () => {
+const VedioFriends = () => {
 const {admin} = useSelector(state=>state.auth);
 const [friends,setFriends] = useState([]);
 const {
@@ -50,4 +50,4 @@ const {
   )
 }
 
-export default Friends
+export default VedioFriends
