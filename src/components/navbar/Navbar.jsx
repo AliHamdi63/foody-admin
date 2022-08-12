@@ -49,6 +49,11 @@ import {toggleMode} from '../../redux/reducers/darkmode';
           </Link>
         </div>
         <div className='item'>
+        <Link to='/vediochat' style={{color:'inherit'}}>
+          <FullscreenExitOutlinedIcon className='icon'/>
+          </Link>
+        </div>
+        <div className='item'>
         <Link to='/home' style={{color:'inherit'}}>
           <ListOutlinedIcon className='icon'/>
           </Link>
