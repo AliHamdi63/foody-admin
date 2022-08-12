@@ -22,8 +22,8 @@
 .friends{
     position: absolute;
     right: 0;
-    top: 0;
-    height: 100vh;
+    top: 200;
+    height: calc(100vh - 200px);
     width: 300px;
     padding-top: 80px;
     border-left: 1px solid #eee;
