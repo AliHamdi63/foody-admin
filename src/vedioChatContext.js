@@ -51,11 +51,11 @@ const ContextProvider = ({ children }) => {
         peer.on('stream', (currentStream) => {
             userVideo.current.srcObject = currentStream;
         });
+        
+        peer.signal(call.signal);
+        
+        connectionRef.current = peer;
     });
-
-    peer.signal(call.signal);
-
-    connectionRef.current = peer;
   };
 
   const callUser = (id) => {
