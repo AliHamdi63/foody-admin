@@ -37,19 +37,19 @@ const List = ({Orders}) => {
           {orders?.map((row)=>{
             return (
                 <TableRow key={row._id}>
-                     <TableCell className="tableCell">{row._id}</TableCell>
+                     <TableCell className="tableCell">{row?._id}</TableCell>
               <TableCell className="tableCell">
                 <div className="cellWrapper">
-                  <img src={row.user?.image.startsWith('http')?row.user?.image:imgP+"/"+ row.user?.image} alt="" className="image" />
-                  {row.user?.firstName+' '+row.user?.lastName}
+                  <img src={row?.user?.image.startsWith('http')?row?.user?.image:imgP+"/"+ row.user?.image} alt="" className="image" />
+                  {row?.user?.firstName+' '+row?.user?.lastName}
                 </div>
               </TableCell>
-              <TableCell className="tableCell">{format(row.createdAt)}</TableCell>
-              <TableCell className="tableCell">{row.amount}Egp</TableCell>
-              <TableCell className="tableCell">{getAddress(row.user.address)}</TableCell>
-              <TableCell className="tableCell">{row.methodOfPayment}</TableCell>
+              <TableCell className="tableCell">{format(row?.createdAt)}</TableCell>
+              <TableCell className="tableCell">{row?.amount}Egp</TableCell>
+              <TableCell className="tableCell">{getAddress(row?.user?.address)}</TableCell>
+              <TableCell className="tableCell">{row?.methodOfPayment}</TableCell>
               <TableCell className="tableCell">
-                <span className={`status ${row.status}`}>{row.status}</span>
+                <span className={`status ${row?.status}`}>{row?.status}</span>
               </TableCell>
             </TableRow>
             )
