@@ -8,8 +8,9 @@ import Single from "./pages/single/Single";
 import New from './pages/new/New'
 import Chat from "./pages/chat/Chat";
 import SingleOrder from "./pages/singleOrder/SingleOrder";
-import MyEditor from './components/editor/MyEditor'
 import UpdateMeal from "./pages/updateMeal/UpdateMeal";
+import VedioChat from './pages/vedioChat/VedioChat';
+import { ContextProvider } from './vedioChatContext';
 function App() {
 
   let {admin} = useSelector(state=>state.auth);
@@ -35,7 +36,7 @@ function App() {
           <Route path="/addMeal" element={admin ?<New />: <Navigate to='/login' /> } />
           
           <Route path="/chat" element={admin ?<Chat />: <Navigate to='/login' /> } />
-          <Route path="/editor" element={<MyEditor />} />
+          <Route path="/vediochat" element={admin?<ContextProvider><VedioChat /></ContextProvider>:<Navigate to='/login' />} />
         </Routes>
       </BrowserRouter>
     </div>
