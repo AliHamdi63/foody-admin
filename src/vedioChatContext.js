@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const SocketContext = createContext();
 
-const socket = io('https://foody-video-chat.herokuapp.com');
+const socket = io('https://foody-video-socket.vercel.app/');
 
 
 const ContextProvider = ({ children }) => {
@@ -14,7 +14,7 @@ const ContextProvider = ({ children }) => {
   const [stream, setStream] = useState();
   const [call, setCall] = useState({});
   const [online, setOnline] = useState([]);
-  const {admin} = useSelector(state=>state.auth);
+  const { admin } = useSelector(state => state.auth);
 
 
   const myVideo = useRef();
@@ -27,18 +27,18 @@ const ContextProvider = ({ children }) => {
         setStream(currentStream);
       });
 
-    socket.emit('addToServer',admin._id);
-    
-    socket.on('getAddedToServer',(onlineFriends)=>{
-        setOnline(onlineFriends)
+    socket.emit('addToServer', admin._id);
+
+    socket.on('getAddedToServer', (onlineFriends) => {
+      setOnline(onlineFriends)
     })
 
     socket.on('callUser', ({ from, signal }) => {
       setCall({ isReceivingCall: true, from, signal });
     });
 
-    socket.on('callEnded',()=>{
-        window.location.reload();
+    socket.on('callEnded', () => {
+      window.location.reload();
     })
   }, []);
 
@@ -64,9 +64,11 @@ const ContextProvider = ({ children }) => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
     myVideo.current.srcObject = stream;
     peer.on('signal', (data) => {
-      socket.emit('callUser', { userToCall: id, signalData: data, from: online.find((obj)=>{
-        return obj.userId === admin._id
-      }).socketId });
+      socket.emit('callUser', {
+        userToCall: id, signalData: data, from: online.find((obj) => {
+          return obj.userId === admin._id
+        }).socketId
+      });
     });
 
     peer.on('stream', (currentStream) => {

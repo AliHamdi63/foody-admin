@@ -9,7 +9,7 @@ const Auth = () => {
   let { isFetching, err } = useSelector(state => state.auth)
 
   const handleChange = (e) => {
-    console.log(data)
+    // console.log(data)
     setData({ ...data, [e.target.name]: e.target.value })
   }
 
